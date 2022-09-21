@@ -4,6 +4,7 @@ body {
 
 .car {
   width: 240px;
+  position: absolute;
 }
 
 .car.south {
