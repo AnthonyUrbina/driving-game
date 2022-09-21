@@ -1,13 +1,14 @@
 var data = {
   facing: null,
   locationX: null,
-  locationY: null
+  locationY: null,
+  engineOn: false
 };
 
 var $car = document.querySelector('.car');
 
 document.addEventListener('keydown', handleKeyDown);
-
+var returnIntervalID = 0;
 function handleKeyDown(event) {
   if (event.key === 'ArrowDown') {
     data.facing = 'South';
@@ -23,9 +24,15 @@ function handleKeyDown(event) {
     data.facing = 'East';
     $car.className = 'car east';
   } else if (event.key === ' ') {
-    setInterval(gas, 16);
-    data.locationX = $car.x;
-    data.locationY = $car.y;
+    if (data.engineOn === false) {
+      data.engineOn = true;
+      returnIntervalID = setInterval(gas, 16);
+      data.locationX = $car.x;
+      data.locationY = $car.y;
+    } else if (data.engineOn === true) {
+      clearInterval(returnIntervalID);
+      data.engineOn = false;
+    }
   }
 }
 var offsetLeft = 0;
